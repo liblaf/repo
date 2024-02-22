@@ -32,4 +32,11 @@ for repo in "${repos[@]}"; do
   _sync "$repo" &
 done
 
-wait
+while
+  wait -fn || exitcode=$?
+  ((exitcode != 127))
+do
+  if ((exitcode)); then
+    exit "$exitcode"
+  fi
+done
