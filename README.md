@@ -4,18 +4,34 @@ Repo Automation and Config Files
 
 ## Config Files
 
-- auto-label
+### Common
+
+- [auto-label](https://github.com/googleapis/repo-automation-bots/tree/main/packages/auto-label)
   - `.github/auto-label.yaml`
-- blunderbuss
+- [blunderbuss](https://github.com/googleapis/repo-automation-bots/tree/main/packages/blunderbuss)
   - `.github/blunderbuss.yml`
-- pre-commit.ci
+- [Dependabot](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file)
+  - `.github/dependabot.yaml`
+- [pre-commit.ci](https://pre-commit.ci/)
   - `.pre-commit-config.yaml`
-- release-please
+- [release-please](https://github.com/googleapis/repo-automation-bots/tree/main/packages/release-please)
   - `.github/release-please.yml`
   - `.release-please-manifest.json`
   - `release-please-config.json`
-- sync-repo-settings
+- [sync-repo-settings](https://github.com/googleapis/repo-automation-bots/tree/main/packages/sync-repo-settings)
   - `.github/sync-repo-settings.yaml`
+
+### latexindent
+
+- [latexindent](https://latexindentpl.readthedocs.io/)
+  - `.latexindent.yaml`
+
+### Python
+
+- [Ruff](https://docs.astral.sh/ruff/)
+  - `.ruff.toml`
+- [MyPy](https://mypy.readthedocs.io/en/stable/config_file.html)
+  - `.mypy.ini`
 
 ## GitHub Apps
 
