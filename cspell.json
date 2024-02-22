@@ -3,6 +3,7 @@
   "ignorePaths": ["*-lock.*", "*.lock", "cspell.json"],
   "dictionaries": [
     "bash",
+    "cpp",
     "cpp-legacy",
     "cpp-refined",
     "dotnet",
