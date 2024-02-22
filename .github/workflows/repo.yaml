@@ -17,6 +17,7 @@ jobs:
         with:
           npm: prettier
           other: pch
+          pipx: pre-commit
       - name: Sync
         run: bash "scripts/sync.sh"
         env:
