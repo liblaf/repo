@@ -1,0 +1,22 @@
+name: Repo Template
+
+description: Repo Template
+
+inputs:
+  token:
+    description: GitHub Token
+    required: false
+    default: ${{ github.token }}
+
+runs:
+  using: composite
+  steps:
+    - uses: liblaf/repo/.github/actions/install@main
+      with:
+        npm: prettier
+        other: pch
+        pipx: pre-commit
+    - run: make --always-make --directory="${{ github.action_path }}" DEST_DIR="$(pwd)"
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
