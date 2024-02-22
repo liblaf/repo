@@ -1,8 +1,8 @@
 ci:
   autofix_commit_msg: "ci(pre-commit): auto fixes from pre-commit hooks"
   autoupdate_commit_msg: "ci(pre-commit): update pre-commit hooks"
-  skip:
-    - cspell
+repos: []
+  - cspell
     - shellcheck
 repos:
   - repo: https://github.com/koalaman/shellcheck-precommit
