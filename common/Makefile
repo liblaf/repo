@@ -17,10 +17,11 @@ $(DEST_DIR)/.pre-commit-config.yaml: .pre-commit-config.yaml
 $(DEST_DIR)/%: %
 	@ $(INSTALL) "$<" "$@"
 
+deprecated: RM := rm --force --recursive
 deprecated:
-	@ rm --verbose "$(DEST_DIR)/.github/workflows/merge.yaml"
-	@ rm --verbose "$(DEST_DIR)/.github/workflows/pre-commit.yaml"
-	@ rm --verbose "$(DEST_DIR)/.github/workflows/template.yaml"
+	@ $(RM) "$(DEST_DIR)/.github/workflows/merge.yaml"
+	@ $(RM) "$(DEST_DIR)/.github/workflows/pre-commit.yaml"
+	@ $(RM) "$(DEST_DIR)/.github/workflows/template.yaml"
 
 github: github.sh
 	bash "$<" "$(OWNER)/$(REPO)"

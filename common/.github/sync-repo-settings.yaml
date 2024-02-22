@@ -2,3 +2,4 @@
 
 branchProtectionRules:
   - pattern: main
+    isAdminEnforced: false

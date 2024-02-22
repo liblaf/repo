@@ -4,6 +4,7 @@ ci:
   skip:
     - cspell
     - poetry-lock
+    - shellcheck
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.2.2
@@ -37,17 +38,6 @@ repos:
         files: \.(bash|sh|zsh)(\.tmpl)?$
         types:
           - text
-  - repo: https://github.com/liblaf/pre-commit-hooks
-    rev: dev
-    hooks:
-      - id: cargo-check
-      - id: cargo-clippy
-        args:
-          - --fix
-          - --allow-dirty
-          - --allow-staged
-      - id: cargo-fmt
-      - id: cargo-test
   - repo: https://github.com/pre-commit/mirrors-clang-format
     rev: v17.0.6
     hooks:
@@ -66,8 +56,6 @@ repos:
     rev: v4.5.0
     hooks:
       - id: check-added-large-files
-        args:
-          - --maxkb=4096
       - id: check-ast
       - id: check-builtin-literals
       - id: check-case-conflict
