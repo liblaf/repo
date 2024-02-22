@@ -1,5 +1,5 @@
 {
-  "words": ["choco", "liblaf", "stefanzweifel"],
+  "words": ["choco", "liblaf", "stefanzweifel", "swatinem", "taplo"],
   "ignorePaths": ["*-lock.*", "*.lock", "cspell.json"],
   "dictionaries": [
     "bash",
@@ -8,7 +8,8 @@
     "cpp-refined",
     "dotnet",
     "npm",
-    "python"
+    "python",
+    "rust"
   ],
   "allowCompoundWords": true
 }

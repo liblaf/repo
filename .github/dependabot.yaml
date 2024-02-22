@@ -1,0 +1,38 @@
+version: 2
+updates:
+  - package-ecosystem: cargo
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: build(cargo)
+      prefix-development: build(cargo-dev)
+      include: scope
+    groups:
+      cargo:
+        patterns:
+          - "*"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: build(github-actions)
+      prefix-development: build(github-actions-dev)
+      include: scope
+    groups:
+      github-actions:
+        patterns:
+          - "*"
+  - package-ecosystem: github-actions
+    directory: .github/actions/install
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: build(github-actions)
+      prefix-development: build(github-actions-dev)
+      include: scope
+    groups:
+      github-actions:
+        patterns:
+          - "*"

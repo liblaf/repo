@@ -1,19 +1,32 @@
-export DEST_DIR ?= $(CURDIR)
+NAME := repo
+HOST != rustc --version --verbose | sed --quiet 's/host: //p'
 
-export OWNER != git -C "$(DEST_DIR)" remote get-url origin | sed --regexp-extended 's|\.git$$||;s|.*github.com/([^/]+)/([^/]+)|\1|'
-export REPO  != git -C "$(DEST_DIR)" remote get-url origin | sed --regexp-extended 's|\.git$$||;s|.*github.com/([^/]+)/([^/]+)|\2|'
+default: check clippy fmt
 
-export INSTALL := install -D --mode="u=rw,go=r" --no-target-directory --verbose
+check:
+	cargo check
 
-default:
+clippy:
+	cargo clippy --fix --allow-dirty --allow-staged
 
-define template
-ifeq ($$(shell bash $(1)/detect.sh),true)
-default: $(1)
-.PHONY: $(1)
-$(1):
-	$(MAKE) --directory "$$@"
-endif
-endef
-TEMPLATES := common
-$(foreach t,$(TEMPLATES),$(eval $(call template,$(t))))
+.PHONY: dist
+dist: dist/$(NAME)-$(HOST)
+
+fmt: cargo-fmt fmt/Cargo.toml
+
+#####################
+# Auxiliary Targets #
+#####################
+
+ALWAYS:
+
+cargo-fmt:
+	cargo fmt
+
+dist/%-$(HOST): target/release/% ALWAYS
+	cargo build --release
+	@ install -D --no-target-directory --verbose "$<" "$@"
+
+fmt/Cargo.toml: Cargo.toml
+	toml-sort --in-place --all "$<"
+	taplo format "$<"
