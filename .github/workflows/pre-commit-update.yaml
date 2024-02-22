@@ -1,0 +1,28 @@
+name: pre-commit Update
+
+on:
+  schedule:
+    - cron: 0 0 * * *
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: Update
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install CLI
+        run: |
+          gh release download "dev" --output "$HOME/.local/bin/pch" --pattern "pch-x86_64-unknown-linux-gnu" --repo "liblaf/pre-commit-hooks"
+          chmod +x "$HOME/.local/bin/pch"
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Update
+        run: pch update templates/common/.pre-commit-config.yaml
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ci(pre-commit): update pre-commit hooks"
