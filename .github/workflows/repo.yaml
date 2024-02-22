@@ -18,6 +18,10 @@ jobs:
           npm: prettier
           other: pch
           pipx: pre-commit
+      - name: Setup Git
+        run: |-
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
       - name: Sync
         run: bash "scripts/sync.sh"
         env:

@@ -21,9 +21,7 @@ function _sync() {
   if git -C "$repo" diff --cached --exit-code; then
     echo "[$repo] already up to date"
   else
-    git -C "$repo" commit \
-      --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>" \
-      --message="ci(repo): sync with template"
+    git -C "$repo" commit --message="ci(repo): sync with template"
     git -C "$repo" push
   fi
 }
