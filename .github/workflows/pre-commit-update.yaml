@@ -14,12 +14,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install CLI
-        run: |
-          gh release download "dev" --output "$HOME/.local/bin/pch" --pattern "pch-x86_64-unknown-linux-gnu" --repo "liblaf/pre-commit-hooks"
-          chmod +x "$HOME/.local/bin/pch"
-        env:
-          GH_TOKEN: ${{ github.token }}
+      - name: Install Tools
+        uses: liblaf/repo/.github/actions/install@main
+        with:
+          other: pch
       - name: Update
         run: pch update "common/.pre-commit-config.yaml"
       - name: Commit
