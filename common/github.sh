@@ -14,3 +14,8 @@ gh api "repos/$repo/actions/permissions/workflow" \
   --field "default_workflow_permissions"="read" \
   --field "can_approve_pull_request_reviews"=true \
   --method PUT
+
+# https://docs.github.com/en/rest/branches/branch-protection#update-branch-protection
+gh api "repos/$repo/branches/main/protection" \
+  --input "protection.json" \
+  --method PUT
