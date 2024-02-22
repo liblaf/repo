@@ -17,6 +17,7 @@ jobs:
       - name: Install Tools
         uses: liblaf/repo/.github/actions/install@main
         with:
+          npm: prettier
           other: pch
       - name: Update
         run: pch update "common/.pre-commit-config.yaml"

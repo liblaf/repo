@@ -8,19 +8,27 @@ inputs:
     required: false
     default: ${{ github.token }}
   apt:
-    description: "APT packages to install"
+    description: APT
     required: false
     default: ""
   brew:
-    description: "Brew packages to install"
+    description: Homebrew
     required: false
     default: ""
   choco:
-    description: "Chocolatey packages to install"
+    description: Chocolatey
+    required: false
+    default: ""
+  npm:
+    description: NPM
     required: false
     default: ""
   other:
-    description: "Other packages to install"
+    description: other
+    required: false
+    default: ""
+  pipx:
+    description: pipx
     required: false
     default: ""
 
@@ -36,8 +44,14 @@ runs:
     - run: bash "${{ github.action_path }}/scripts/choco.sh" ${{ inputs.choco }}
       shell: bash
       if: inputs.choco
+    - run: bash "${{ github.action_path }}/scripts/npm.sh" ${{ inputs.npm }}
+      shell: bash
+      if: inputs.npm
     - run: bash "${{ github.action_path }}/scripts/other.sh" ${{ inputs.other }}
       shell: bash
       if: inputs.other
       env:
         GH_TOKEN: ${{ inputs.token }}
+    - run: bash "${{ github.action_path }}/scripts/pipx.sh" ${{ inputs.pipx }}
+      shell: bash
+      if: inputs.pipx

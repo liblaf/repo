@@ -6,8 +6,8 @@
     "cpp-legacy",
     "cpp-refined",
     "dotnet",
-    "makefile",
-    "npm"
+    "npm",
+    "python"
   ],
   "allowCompoundWords": true
 }

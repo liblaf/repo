@@ -15,6 +15,7 @@ jobs:
       - name: Install Tools
         uses: liblaf/repo/.github/actions/install@main
         with:
+          npm: prettier
           other: pch
       - name: Sync
         run: bash "scripts/sync.sh"
