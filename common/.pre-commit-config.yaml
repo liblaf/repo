@@ -16,7 +16,7 @@ repos:
   - repo: https://github.com/cmhughes/latexindent.pl
     rev: V3.23.6
     hooks:
-      - id: latexindent
+      - id: latexindent-conda
         files: \.(tex|sty|cls|bib)$
         types:
           - text
