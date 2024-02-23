@@ -24,11 +24,11 @@ jobs:
         run: sed --version
       - name: make
         run: make --version
-      - name: prettier
+      - name: Prettier
         run: prettier --version
-      - name: pch
+      - name: pre-commit-hooks
         run: pch --version
-      - name: poetry
+      - name: Poetry
         run: poetry --version
       - name: pre-commit
         run: pre-commit --version
