@@ -3,23 +3,30 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-alias release='gh release --repo "$REPO"'
 sums=${ALGORITHM}s.txt
 
-if release view "$TAG" &> /dev/null; then
+for file in $FILES; do
+  if [[ -f $file ]]; then
+    files+=("$file")
+  else
+    echo "::warning file=${BASH_SOURCE[0]},line=$LINENO::File not found: $file"
+  fi
+done
+
+if gh release view "$TAG" --repo "$REPO" &> /dev/null; then
   if [[ -n $FILES ]]; then
     tmpfile=$(mktemp --suffix=".txt")
     trap 'rm --force "$tmpfile"' EXIT
-    release download "$TAG" --output "$tmpfile" --pattern "$sums"
-    # shellcheck disable=SC2086
-    "$ALGORITHM" $FILES > "$sums"
+    gh release download "$TAG" --output "$tmpfile" --pattern "$sums" --repo "$REPO" || true
+    "$ALGORITHM" "${files[@]}" > "$sums"
     sed --regexp-extended --expression="s|([[:xdigit:]]+)([[:blank:]])+.*/([^/]+)|\1\2\3|" --in-place "$sums"
-    if diff --report-identical-files --side-by-side "$tmpfile" "$sums"; then
+    if diff --report-identical-files "$tmpfile" "$sums"; then
       exit 0
     fi
   fi
   if $RECREATE; then
-    echo release delete "$TAG" --cleanup-tag
+    gh release delete "$TAG" --cleanup-tag --repo "$REPO"
+    echo "::notice file=${BASH_SOURCE[0]},line=$LINENO::Delete GitHub Release: $TAG"
     exists=false
   else
     exists=true
@@ -28,14 +35,7 @@ else
   exists=false
 fi
 
-for file in $FILES; do
-  if [ ! -f "$file" ]; then
-    echo "File not found: $file"
-    exit 1
-  fi
-done
-
-args=(release)
+args=(gh release --repo "$REPO")
 if $exists; then
   args+=(upload --clobber)
 else
@@ -44,11 +44,12 @@ else
     args+=(--prerelease)
   fi
 fi
-# shellcheck disable=SC2206
-args+=($FILES)
-if [[ -f $sums && ! " ${args[*]} " =~ $sums ]]; then
+args+=("$TAG")
+args+=("${files[@]}")
+if [[ -f $sums ]]; then
   args+=("$sums")
 fi
 set -o xtrace
 "${args[@]}"
 set +o xtrace
+echo "::notice file=${BASH_SOURCE[0]},line=$LINENO::Create GitHub Release: $TAG"
