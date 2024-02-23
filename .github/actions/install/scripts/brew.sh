@@ -5,3 +5,14 @@ set -o pipefail
 
 brew update
 brew install "$@"
+
+for pkg in "$@"; do
+  case "$pkg" in
+    coreutils | make | gnu-*)
+      brew install "$pkg"
+      PATH="$HOMEBREW_PREFIX/opt/$pkg/libexec/gnubin:$PATH"
+      echo "$HOMEBREW_PREFIX/opt/$pkg/libexec/gnubin" >> "$GITHUB_PATH"
+      ;;
+    *) brew install "$pkg" ;;
+  esac
+done
