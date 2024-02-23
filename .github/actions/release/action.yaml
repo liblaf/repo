@@ -1,0 +1,45 @@
+name: Release
+
+description: Release
+
+inputs:
+  token:
+    description: GitHub Token
+    required: false
+    default: ${{ github.token }}
+  tag:
+    description: Tag
+    required: true
+  files:
+    description: Newline-delimited list of path globs for asset files to upload
+    required: false
+  prerelease:
+    description: Mark the release as a prerelease
+    required: false
+    default: "false"
+  repo:
+    description: Select another repository using the [HOST/]OWNER/REPO format
+    required: false
+    default: ${{ github.repository }}
+  algorithm:
+    description: Compute checksums using the specified digest algorithm
+    required: false
+    default: b2sum
+  recreate:
+    description: Recreate the release if it already exists
+    required: false
+    default: "false"
+
+runs:
+  using: "composite"
+  steps:
+    - run: bash "${{ github.action_path }}/main.sh"
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.token }}
+        TAG: ${{ inputs.tag }}
+        FILES: ${{ inputs.files }}
+        PRERELEASE: ${{ inputs.prerelease }}
+        REPO: ${{ inputs.repo }}
+        ALGORITHM: ${{ inputs.algorithm }}
+        RECREATE: ${{ inputs.recreate }}
