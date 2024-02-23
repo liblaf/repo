@@ -1,0 +1,34 @@
+name: Test Install
+
+on:
+  push:
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install
+        uses: ./.github/actions/install
+        with:
+          brew: coreutils gnu-sed make
+          choco: gnuwin32-coreutils.install make sed
+          npm: prettier
+          other: pch
+          pipx: poetry pre-commit
+      - name: Coreutils
+        run: install --version
+      - name: sed
+        run: sed --version
+      - name: make
+        run: make --version
+      - name: prettier
+        run: prettier --version
+      - name: pch
+        run: pch --version
+      - name: poetry
+        run: poetry --version
+      - name: pre-commit
+        run: pre-commit --version

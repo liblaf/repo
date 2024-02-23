@@ -35,15 +35,17 @@ inputs:
 runs:
   using: composite
   steps:
+    - run: bash "${{ github.action_path }}/scripts/path.sh"
+      shell: bash
     - run: bash "${{ github.action_path }}/scripts/apt.sh" ${{ inputs.apt }}
       shell: bash
-      if: inputs.apt
+      if: runner.os == 'Linux' && inputs.apt
     - run: bash "${{ github.action_path }}/scripts/brew.sh" ${{ inputs.brew }}
       shell: bash
-      if: inputs.brew
+      if: runner.os == 'macOS' && inputs.brew
     - run: bash "${{ github.action_path }}/scripts/choco.sh" ${{ inputs.choco }}
       shell: bash
-      if: inputs.choco
+      if: runner.os == 'Windows' && inputs.choco
     - run: bash "${{ github.action_path }}/scripts/npm.sh" ${{ inputs.npm }}
       shell: bash
       if: inputs.npm
