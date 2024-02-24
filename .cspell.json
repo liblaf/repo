@@ -1,0 +1,20 @@
+{
+  "words": [
+    "bidi",
+    "choco",
+    "commitizen",
+    "coreutils",
+    "cuda",
+    "cygpath",
+    "liblaf",
+    "msvc",
+    "mypy",
+    "pipx",
+    "shfmt",
+    "stefanzweifel",
+    "tmpl",
+    "xdigit"
+  ],
+  "ignorePaths": [".cspell.json", "*-lock.*", "*.lock"],
+  "allowCompoundWords": true
+}
