@@ -2,6 +2,7 @@ DEST_DIR ?= $(error DEST_DIR is not set)
 
 default: $(DEST_DIR)/.github/auto-label.yaml
 default: $(DEST_DIR)/.github/blunderbuss.yml
+default: $(DEST_DIR)/.github/renovate.json
 default: $(DEST_DIR)/.github/sync-repo-settings.yaml
 default: $(DEST_DIR)/.github/workflows/stale.yaml
 default: $(DEST_DIR)/.pre-commit-config.yaml
