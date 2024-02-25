@@ -94,7 +94,6 @@ repos:
           - --output=requirements.txt
           - --without-hashes
           - --without-urls
-      - id: poetry-install
       - id: poetry-lock
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.8.0-1
@@ -120,3 +119,6 @@ repos:
     rev: v8.4.0
     hooks:
       - id: cspell
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply

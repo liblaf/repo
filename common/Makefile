@@ -14,7 +14,8 @@ default: github
 #####################
 
 $(DEST_DIR)/.pre-commit-config.yaml: .pre-commit-config.yaml
-	cd "$(@D)" && pch filter --output="$(abspath $@)" "$(abspath $<)"
+	@ install -D --mode="u=rw,go=r" --no-target-directory --verbose "$<" "$@"
+	cd "$(@D)" && pch filter
 
 $(DEST_DIR)/%: %
 	@ $(INSTALL) "$<" "$@"
