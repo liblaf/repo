@@ -3,10 +3,13 @@ import subprocess
 import sys
 import tempfile
 
+ignore_paths: list[str] = sorted(
+    ["**/.cspell.json", "**/*-lock.*", "**/*.lock", *sys.argv[1:]]
+)
 with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as fp:
     json.dump(
         {
-            "ignorePaths": [".cspell.json", "*-lock.*", "*.lock"],
+            "ignorePaths": ignore_paths,
             "allowCompoundWords": True,
         },
         fp,
@@ -26,7 +29,7 @@ with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as fp:
             "--dot",
             "--gitignore",
             "--color",
-            sys.argv[1] if len(sys.argv) > 1 else ".",
+            ".",
         ],
         stdin=subprocess.DEVNULL,
         stdout=subprocess.PIPE,
@@ -36,19 +39,10 @@ with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as fp:
     )
     stdout: str = process.stdout
 words: set[str] = set(word.lower() for word in stdout.splitlines())
-config: str = json.dumps(
-    {
-        "words": sorted(words),
-        "ignorePaths": [".cspell.json", "*-lock.*", "*.lock"],
-        "allowCompoundWords": True,
-    },
-    ensure_ascii=False,
-    sort_keys=False,
-)
 json.dump(
     {
         "words": sorted(words),
-        "ignorePaths": [".cspell.json", "*-lock.*", "*.lock"],
+        "ignorePaths": ignore_paths,
         "allowCompoundWords": True,
     },
     sys.stdout,
