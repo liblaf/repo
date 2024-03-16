@@ -10,14 +10,14 @@ Repo Automation and Config Files
   - `.github/auto-label.yaml`
 - [blunderbuss](https://github.com/googleapis/repo-automation-bots/tree/main/packages/blunderbuss)
   - `.github/blunderbuss.yml`
-- [Dependabot](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file)
-  - `.github/dependabot.yaml`
 - [pre-commit.ci](https://pre-commit.ci/)
   - `.pre-commit-config.yaml`
 - [release-please](https://github.com/googleapis/repo-automation-bots/tree/main/packages/release-please)
   - `.github/release-please.yml`
   - `.release-please-manifest.json`
   - `release-please-config.json`
+- [Renovate](https://docs.renovatebot.com/)
+  - `.github/renovate.json`
 - [sync-repo-settings](https://github.com/googleapis/repo-automation-bots/tree/main/packages/sync-repo-settings)
   - `.github/sync-repo-settings.yaml`
 
