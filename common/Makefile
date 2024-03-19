@@ -8,6 +8,7 @@ default: $(DEST_DIR)/.github/workflows/stale.yaml
 default: $(DEST_DIR)/.pre-commit-config.yaml
 default: deprecated
 default: github
+default: pre-commit
 
 #####################
 # Auxiliary Targets #
@@ -30,3 +31,6 @@ deprecated:
 
 github: github.sh
 	bash "$<" "$(OWNER)/$(REPO)"
+
+pre-commit:
+	- pre-commit install --install-hooks
