@@ -35,7 +35,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: bash "${{ github.action_path }}/scripts/path.sh"
+    - run: bash "${{ github.action_path }}/scripts/env.sh"
       shell: bash
     - run: bash "${{ github.action_path }}/scripts/apt.sh" ${{ inputs.apt }}
       shell: bash
