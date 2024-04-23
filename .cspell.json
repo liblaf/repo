@@ -15,6 +15,6 @@
     "tmpl",
     "xdigit"
   ],
-  "ignorePaths": [".cspell.json", "*-lock.*", "*.lock"],
+  "ignorePaths": ["**/*-lock.*", "**/*.lock", "**/.cspell.json"],
   "allowCompoundWords": true
 }
