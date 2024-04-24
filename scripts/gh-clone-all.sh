@@ -20,9 +20,9 @@ for repo in "${repos[@]}"; do
     *) target=$prefix/$repo ;;
   esac
   if [[ -d "$target/.git" ]]; then
-    run git -C "$target" pull &
+    git -C "$target" pull &
   else
-    run gh repo clone "$repo" "$target" &
+    gh repo clone "$repo" "$target" &
   fi
 done
 

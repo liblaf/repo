@@ -26,6 +26,8 @@ if gh release view "$TAG" --repo "$REPO" &> /dev/null; then
   fi
   if $RECREATE; then
     gh release delete "$TAG" --cleanup-tag --repo "$REPO"
+    # TODO: fix <https://github.com/cli/cli/issues/8458#issuecomment-1854326401> in a more elegant way
+    sleep 3
     echo "::notice file=${BASH_SOURCE[0]},line=$LINENO::Delete GitHub Release: $TAG"
     exists=false
   else
