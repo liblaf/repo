@@ -34,7 +34,7 @@ runs:
   using: "composite"
   steps:
     - run: |-
-        npm install conventional-changelog-angular-emoji
+        npm install conventional-changelog-conventionalcommits
         cp "${{ github.action_path }}/changelog-config.js" ./changelog-config.js
       shell: bash
     - id: changelog
@@ -48,6 +48,8 @@ runs:
         config-file-path: ./changelog-config.js
         create-summary: true
         skip-bump: true
+    - run: rm -r ./changelog-config.js
+      shell: bash
     - run: bash "${{ github.action_path }}/main.sh"
       shell: bash
       env:
@@ -59,5 +61,3 @@ runs:
         ALGORITHM: ${{ inputs.algorithm }}
         RECREATE: ${{ inputs.recreate }}
         CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
-    - run: rm -f ./changelog-config.js
-      shell: bash
