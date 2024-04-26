@@ -33,7 +33,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: npm install --global conventional-changelog-angular-emoji
+    - run: |-
+        npm install conventional-changelog-angular-emoji
+        cp "${{ github.action_path }}/changelog-config.js" ./changelog-config.js
       shell: bash
     - id: changelog
       uses: TriPSs/conventional-changelog-action@v5
@@ -43,7 +45,7 @@ runs:
         skip-version-file: true
         skip-commit: true
         skip-tag: true
-        config-file-path: ${{ github.action_path }}/changelog-config.js
+        config-file-path: ./changelog-config.js
         create-summary: true
         skip-bump: true
     - run: bash "${{ github.action_path }}/main.sh"
@@ -57,3 +59,5 @@ runs:
         ALGORITHM: ${{ inputs.algorithm }}
         RECREATE: ${{ inputs.recreate }}
         CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
+    - run: rm -f ./changelog-config.js
+      shell: bash
