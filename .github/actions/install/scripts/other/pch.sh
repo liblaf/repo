@@ -9,9 +9,9 @@ if [[ $RUNNER_ARCH == "X64" && $RUNNER_OS == "Linux" ]]; then
 elif [[ $RUNNER_ARCH == "X64" && $RUNNER_OS == "Windows" ]]; then
   output="$HOME/.local/bin/pch.exe"
   pattern="pch-x86_64-pc-windows-msvc.exe"
-elif [[ $RUNNER_ARCH == "X64" && $RUNNER_OS == "macOS" ]]; then
+elif [[ $RUNNER_ARCH == "ARM64" && $RUNNER_OS == "macOS" ]]; then
   output="$HOME/.local/bin/pch"
-  pattern="pch-x86_64-apple-darwin"
+  pattern="pch-aarch64-apple-darwin"
 else
   echo "::error file=${BASH_SOURCE[0]},line=$LINENO::Unsupported Platform: $RUNNER_OS/$RUNNER_ARCH"
   exit 1
