@@ -17,10 +17,9 @@ jobs:
       - name: Install Tools
         uses: liblaf/repo/.github/actions/install@main
         with:
-          npm: prettier
-          other: pch
+          pipx: pre-commit
       - name: Update
-        run: pch update "common/.pre-commit-config.yaml"
+        run: pre-commit autoupdate --config "common/.pre-commit-config.yaml" --jobs 8
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
