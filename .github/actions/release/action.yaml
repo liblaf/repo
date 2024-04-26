@@ -33,7 +33,7 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: npm install conventional-changelog-angular-emoji
+    - run: npm install --global conventional-changelog-angular-emoji
       shell: bash
     - id: changelog
       uses: TriPSs/conventional-changelog-action@v5
