@@ -13,7 +13,7 @@ inputs:
   files:
     description: Newline-delimited list of path globs for asset files to upload
     required: false
-  prerelease:
+  pre-release:
     description: Mark the release as a prerelease
     required: false
     default: "false"
@@ -33,13 +33,24 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - id: changelog
+      uses: TriPSs/conventional-changelog-action@v5
+      with:
+        git-push: false
+        output-file: false
+        skip-version-file: true
+        skip-commit: true
+        skip-tag: true
+        create-summary: true
+        skip-bump: true
     - run: bash "${{ github.action_path }}/main.sh"
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.token }}
         TAG: ${{ inputs.tag }}
         FILES: ${{ inputs.files }}
-        PRERELEASE: ${{ inputs.prerelease }}
+        PRE_RELEASE: ${{ inputs.pre-release }}
         REPO: ${{ inputs.repo }}
         ALGORITHM: ${{ inputs.algorithm }}
         RECREATE: ${{ inputs.recreate }}
+        CHANGELOG: ${{ steps.changelog.outputs.clean_changelog }}
