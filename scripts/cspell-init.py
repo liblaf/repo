@@ -4,7 +4,7 @@ import sys
 import tempfile
 
 ignore_paths: list[str] = sorted(
-    ["**/.cspell.json", "**/*-lock.*", "**/*.lock", *sys.argv[1:]]
+    ["**/.cspell.json", "**/*-lock.*", "**/*.lock*", *sys.argv[1:]]
 )
 with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as fp:
     json.dump(
