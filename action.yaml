@@ -23,7 +23,7 @@ runs:
       with:
         path: ~/.cache/pre-commit
         key: ${{ hashFiles('.pre-commit-config.yaml') }}
-    - run: make --always-make --directory="${{ github.action_path }}" --file="init.mk" --jobs DEST_DIR="$(pwd)"
+    - run: make --always-make --directory="${{ github.action_path }}" --jobs DESTDIR="${{ github.workspace }}"
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.token }}
