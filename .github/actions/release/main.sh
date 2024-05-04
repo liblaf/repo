@@ -42,7 +42,7 @@ if $exists; then
   args+=(upload --clobber)
 else
   args+=(create)
-  if [[ -n $CHANGELOG ]]; then
+  if [[ -n ${CHANGELOG-} ]]; then
     args+=(--notes "$CHANGELOG")
   else
     args+=(--generate-notes)
