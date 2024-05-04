@@ -41,7 +41,13 @@ args=(gh release --repo "$REPO")
 if $exists; then
   args+=(upload --clobber)
 else
-  args+=(create --notes "$CHANGELOG" --title "$TAG")
+  args+=(create)
+  if [[ -n $CHANGELOG ]]; then
+    args+=(--notes "$CHANGELOG")
+  else
+    args+=(--generate-notes)
+  fi
+  args+=(--title "$TAG")
   if $PRE_RELEASE; then
     args+=(--prerelease)
   fi
