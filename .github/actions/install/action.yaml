@@ -10,43 +10,37 @@ inputs:
   apt:
     description: APT
     required: false
-    default: ""
   brew:
     description: Homebrew
     required: false
-    default: ""
   choco:
     description: Chocolatey
     required: false
-    default: ""
   npm:
     description: NPM
     required: false
-    default: ""
   other:
     description: other
     required: false
-    default: ""
   pipx:
     description: pipx
     required: false
-    default: ""
 
 runs:
   using: composite
   steps:
     - run: bash "${{ github.action_path }}/scripts/env.sh"
       shell: bash
-    - run: bash "${{ github.action_path }}/scripts/apt.sh" ${{ inputs.apt }}
+    - run: bash "${{ github.action_path }}/scripts/pm/apt.sh" ${{ inputs.apt }}
       shell: bash
       if: runner.os == 'Linux' && inputs.apt
-    - run: bash "${{ github.action_path }}/scripts/brew.sh" ${{ inputs.brew }}
+    - run: bash "${{ github.action_path }}/scripts/pm/brew.sh" ${{ inputs.brew }}
       shell: bash
       if: runner.os == 'macOS' && inputs.brew
-    - run: bash "${{ github.action_path }}/scripts/choco.sh" ${{ inputs.choco }}
+    - run: bash "${{ github.action_path }}/scripts/pm/choco.sh" ${{ inputs.choco }}
       shell: bash
       if: runner.os == 'Windows' && inputs.choco
-    - run: bash "${{ github.action_path }}/scripts/npm.sh" ${{ inputs.npm }}
+    - run: bash "${{ github.action_path }}/scripts/pm/npm.sh" ${{ inputs.npm }}
       shell: bash
       if: inputs.npm
     - run: bash "${{ github.action_path }}/scripts/other.sh" ${{ inputs.other }}
@@ -54,6 +48,6 @@ runs:
       if: inputs.other
       env:
         GH_TOKEN: ${{ inputs.token }}
-    - run: bash "${{ github.action_path }}/scripts/pipx.sh" ${{ inputs.pipx }}
+    - run: bash "${{ github.action_path }}/scripts/pm/pipx.sh" ${{ inputs.pipx }}
       shell: bash
       if: inputs.pipx

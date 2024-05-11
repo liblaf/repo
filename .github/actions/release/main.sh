@@ -13,17 +13,18 @@ for file in $FILES; do
   fi
 done
 
-if gh release view "$TAG" --repo "$REPO" &> /dev/null; then
-  if [[ -n $FILES ]]; then
-    tmpfile=$(mktemp --suffix=".txt")
-    trap 'rm --force "$tmpfile"' EXIT
-    gh release download "$TAG" --clobber --output "$tmpfile" --pattern "$sums" --repo "$REPO" || true
-    "$ALGORITHM" "${files[@]}" > "$sums"
-    sed --regexp-extended --expression="s|([[:xdigit:]]+)([[:blank:]])+.*/([^/]+)|\1\2\3|" --in-place "$sums"
-    if diff --report-identical-files "$tmpfile" "$sums"; then
-      exit 0
-    fi
+if [[ -n $FILES ]]; then
+  tmpfile=$(mktemp --suffix=".txt")
+  trap 'rm --force "$tmpfile"' EXIT
+  gh release download "$TAG" --clobber --output "$tmpfile" --pattern "$sums" --repo "$REPO" || true
+  "$ALGORITHM" "${files[@]}" > "$sums"
+  sed --regexp-extended --expression="s|([[:xdigit:]]+)([[:blank:]])+.*/([^/]+)|\1\2\3|" --in-place "$sums"
+  if diff --report-identical-files "$tmpfile" "$sums"; then
+    exit 0
   fi
+fi
+
+if gh release view "$TAG" --repo "$REPO" &> /dev/null; then
   if $RECREATE; then
     gh release delete "$TAG" --cleanup-tag --repo "$REPO"
     # TODO: fix <https://github.com/cli/cli/issues/8458#issuecomment-1854326401> in a more elegant way

@@ -14,7 +14,7 @@ default: pre-commit
 #####################
 
 $(DESTDIR)/.pre-commit-config.yaml: .pre-commit-config.yaml
-	@ install -D --mode="u=rw,go=r" --no-target-directory --verbose "$<" "$@"
+	@ $(INSTALL) "$<" "$@"
 	cd "$(@D)" && pch filter
 
 $(DESTDIR)/%: %
