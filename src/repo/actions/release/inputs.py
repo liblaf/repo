@@ -1,7 +1,6 @@
 import dataclasses
-import json
 import pathlib
-from typing import Self, TypedDict
+from typing import Self
 
 from repo.toolkit import core
 
@@ -34,18 +33,10 @@ class Input:
 
 
 def _changelog() -> str | None:
-    pr_str: str = core.input_str("release-pr")
-    if not pr_str:
-        return None
-
-    class Pr(TypedDict):
-        body: str
-
-    pr: Pr = json.loads(pr_str)
-    body: str = pr["body"]
-    body = body.split("---", maxsplit=1)[1]
-    body = body.rsplit("---", maxsplit=1)[0]
-    return body.strip()
+    changelog_file = pathlib.Path(core.input_str("changelog-file"))
+    changelog: str = changelog_file.read_text()
+    changelog = changelog.split("\n", maxsplit=1)[1]
+    return changelog.strip()
 
 
 def _files() -> list[pathlib.Path]:

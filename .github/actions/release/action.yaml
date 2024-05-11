@@ -29,20 +29,22 @@ inputs:
     description: Recreate the release if it already exists
     required: false
     default: "false"
-  release-pr:
-    description: A JSON string of the PullRequest object created by Release Please
-    required: false
 
 runs:
   using: composite
   steps:
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Setup Python
       uses: actions/setup-python@v5
       with:
         python-version: 3.x
-    - run: pip install 'https://github.com/liblaf/repo/releases/download/dev/liblaf_repo-0.0.0-py3-none-any.whl'
+    - run: pip install 'git+https://github.com/liblaf/repo.git'
       shell: bash
       name: Install Tools
+    - run: npx conventional-changelog-cli --config="${{ github.action_path }}/changelog.json" > "${{ runner.temp }}/CHANGELOG.md"
+      shell: bash
+      name: Generate Changelog
     - run: python -m repo.actions.release
       shell: bash
       env:
@@ -50,7 +52,7 @@ runs:
         INPUT_REPO: ${{ inputs.repo }}
         INPUT_TAG: ${{ inputs.tag }}
         INPUT_FILES: ${{ inputs.files }}
+        INPUT_CHANGELOG_FILE: ${{ runner.temp }}/CHANGELOG.md
         INPUT_CHECKSUM: ${{ inputs.checksum }}
         INPUT_PRE_RELEASE: ${{ inputs.pre-release }}
         INPUT_RECREATE: ${{ inputs.recreate }}
-        INPUT_RELEASE_PR: ${{ inputs.release-pr }}
