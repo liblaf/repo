@@ -8,12 +8,12 @@ from repo.toolkit import core
 
 @dataclasses.dataclass(kw_only=True)
 class Input:
-    changelog: str | None
-    checksum: str
-    files: list[pathlib.Path]
-    pre_release: bool
     repo: str
     tag: str
+    files: list[pathlib.Path]
+    changelog: str | None
+    checksum: str
+    pre_release: bool
 
     recreate: bool
 
@@ -34,7 +34,7 @@ class Input:
 
 
 def _changelog() -> str | None:
-    pr_str: str = core.input_str("release-please-pr")
+    pr_str: str = core.input_str("release-pr")
     if not pr_str:
         return None
 
