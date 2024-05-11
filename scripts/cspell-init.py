@@ -1,3 +1,4 @@
+# noqa: INP001
 import json
 import subprocess
 import sys
@@ -38,7 +39,7 @@ with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as fp:
         text=True,
     )
     stdout: str = process.stdout
-words: set[str] = set(word.lower() for word in stdout.splitlines())
+words: set[str] = {word.lower() for word in stdout.splitlines()}
 json.dump(
     {
         "words": sorted(words),
