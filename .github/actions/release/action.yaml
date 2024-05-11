@@ -41,7 +41,9 @@ runs:
     - run: pip install 'git+https://github.com/liblaf/repo.git'
       shell: bash
       name: Install Tools
-    - run: npx conventional-changelog-cli --config="${{ github.action_path }}/changelog.json" > "${{ runner.temp }}/CHANGELOG.md"
+    - run: |-
+        npx conventional-changelog-cli --config="${{ github.action_path }}/changelog.json" > "${{ runner.temp }}/CHANGELOG.md"
+        npx prettier --write "${{ runner.temp }}/CHANGELOG.md"
       shell: bash
       name: Generate Changelog
       working-directory: _tmp
