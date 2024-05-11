@@ -43,7 +43,7 @@ class GhRelease:
 
     def download(self, tag: str, pattern: str) -> str:
         proc: subprocess.CompletedProcess[str] = subprocess.run(
-            [*self.args, tag, "--output=-", "--pattern=" + pattern],
+            [*self.args, "download", tag, "--output=-", "--pattern=" + pattern],
             check=True,
             text=True,
         )
