@@ -34,9 +34,11 @@ class Input:
 
 def _changelog() -> str | None:
     changelog_file = pathlib.Path(core.input_str("changelog-file"))
-    changelog: str = changelog_file.read_text()
-    changelog = changelog.split("\n", maxsplit=1)[1]
-    return changelog.strip()
+    changelog: str = changelog_file.read_text().strip()
+    parts: list[str] = changelog.split("\n", maxsplit=1)
+    if len(parts) <= 1:
+        return None
+    return parts[1].strip()
 
 
 def _files() -> list[pathlib.Path]:
