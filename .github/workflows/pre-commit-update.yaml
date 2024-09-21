@@ -17,7 +17,7 @@ jobs:
       - name: Install Tools
         uses: liblaf/repo/.github/actions/install@main
         with:
-          pipx: pre-commit
+          apt: pre-commit
       - name: Update
         run: pre-commit autoupdate --jobs 8
         working-directory: presets/common

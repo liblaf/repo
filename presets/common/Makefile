@@ -1,4 +1,7 @@
 DESTDIR ?= $(error DESTDIR is not set)
+INSTALL := install -D --mode="u=rw,go=r" --no-target-directory --verbose
+OWNER   != git -C "$(DESTDIR)" remote get-url origin | sed --regexp-extended 's|\.git$$||;s|.*github.com/([^/]+)/([^/]+)|\1|'
+REPO    != git -C "$(DESTDIR)" remote get-url origin | sed --regexp-extended 's|\.git$$||;s|.*github.com/([^/]+)/([^/]+)|\2|'
 
 default: $(DESTDIR)/.github/auto-label.yaml
 default: $(DESTDIR)/.github/blunderbuss.yml

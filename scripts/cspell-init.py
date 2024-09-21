@@ -1,6 +1,5 @@
-# noqa: INP001
 import json
-import subprocess
+import subprocess as sp
 import sys
 import tempfile
 
@@ -16,7 +15,7 @@ with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as fp:
         fp,
     )
     fp.flush()
-    process: subprocess.CompletedProcess[str] = subprocess.run(
+    process: sp.CompletedProcess[str] = sp.run(
         [
             "cspell",
             "lint",
@@ -32,8 +31,8 @@ with tempfile.NamedTemporaryFile(mode="w", suffix=".json") as fp:
             "--color",
             ".",
         ],
-        stdin=subprocess.DEVNULL,
-        stdout=subprocess.PIPE,
+        stdin=sp.DEVNULL,
+        stdout=sp.PIPE,
         stderr=sys.stderr,
         check=True,
         text=True,

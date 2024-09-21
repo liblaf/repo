@@ -1,30 +1,36 @@
 name: Release
 
-description: Release
+author: liblaf
+
+description: Manage releases
 
 inputs:
-  token:
-    description: GitHub Token
+  algo:
+    description: Compute hashsums using the specified digest algorithm
     required: false
-    default: ${{ github.token }}
-  tag:
-    description: Tag
-    required: true
+    default: sha256
+  clobber:
+    description: Recreate the release if it already exists
+    required: false
+    default: "false"
   files:
     description: Newline-delimited list of path globs for asset files to upload
     required: false
-  checksum:
-    description: Compute checksums using the specified digest algorithm
-    required: false
-    default: blake2b
   pre-release:
     description: Mark the release as a prerelease
     required: false
     default: "false"
-  recreate:
-    description: Recreate the release if it already exists
+  repo:
+    description: owner/repo
     required: false
-    default: "false"
+    default: ${{ github.repository }}
+  tag:
+    description: Tag name
+    required: true
+  token:
+    description: GitHub token
+    required: false
+    default: ${{ github.token }}
 
 runs:
   using: composite
@@ -32,29 +38,24 @@ runs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
+        repository: ${{ inputs.repo }}
+        path: _tmp.W8nAhH91eW
         fetch-depth: 0
-        path: _tmp
-    - name: Setup Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.x
-    - run: pip install 'git+https://github.com/liblaf/repo.git'
-      shell: bash
-      name: Install Tools
     - run: |-
-        npx conventional-changelog-cli --config="${{ github.action_path }}/changelog.json" > "${{ runner.temp }}/CHANGELOG.md"
-        npx prettier --write "${{ runner.temp }}/CHANGELOG.md"
+        npx conventional-changelog-cli --outfile "${{ runner.temp }}/CHANGELOG.md" --config "${{ github.action_path }}/changelog.json"
+        npx prettier --write --ignore-path "" "${{ runner.temp }}/CHANGELOG.md"
       shell: bash
       name: Generate Changelog
-      working-directory: _tmp
-    - run: python -m repo.actions.release
+      working-directory: _tmp.W8nAhH91eW
+    - run: pipx --package git+https://github.com/liblaf/repo.git release
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.token }}
+        INPUT_ALGO: ${{ inputs.hashsum }}
+        INPUT_CHANGELOG_FILE: ${{ runner.temp }}/CHANGELOG.md
+        INPUT_CLOBBER: ${{ inputs.clobber }}
+        INPUT_FILES: ${{ inputs.files }}
+        INPUT_PRE_RELEASE: ${{ inputs.pre-release }}
         INPUT_REPO: ${{ github.repository }}
         INPUT_TAG: ${{ inputs.tag }}
-        INPUT_FILES: ${{ inputs.files }}
-        INPUT_CHANGELOG_FILE: ${{ runner.temp }}/CHANGELOG.md
-        INPUT_CHECKSUM: ${{ inputs.checksum }}
-        INPUT_PRE_RELEASE: ${{ inputs.pre-release }}
-        INPUT_RECREATE: ${{ inputs.recreate }}
+      working-directory: _tmp.W8nAhH91eW

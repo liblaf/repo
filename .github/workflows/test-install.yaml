@@ -15,21 +15,19 @@ jobs:
         with:
           brew: coreutils gnu-sed make
           choco: gnuwin32-coreutils.install make sed
+          eget: liblaf/pre-commit-hooks
           npm: prettier
-          other: pch
-          pipx: poetry pre-commit
+          pipx: pre-commit
       - name: Coreutils
         run: install --version
       - name: sed
         run: sed --version
       - name: make
         run: make --version
+      - name: liblaf/pre-commit-hooks
+        run: pch --version
       - name: Prettier
         run: prettier --version
-      - name: pre-commit-hooks
-        run: pch --version
-      - name: Poetry
-        run: poetry --version
       - name: pre-commit
         run: pre-commit --version
     strategy:
