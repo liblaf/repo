@@ -29,6 +29,7 @@
     "pyflow",
     "pypa",
     "pypackages",
+    "pyright",
     "pyrightconfig",
     "pytest",
     "pytype",
