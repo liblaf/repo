@@ -18,7 +18,7 @@ requires-python = ">=3.11"
 version = "0.0.0"
 
 [project.scripts]
-install = "repo.actions.install:main"
+release = "repo.actions.release:main"
 
 [tool.uv]
 dev-dependencies = ["icecream>=2.1.3"]

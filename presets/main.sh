@@ -5,6 +5,6 @@ presets=(common)
 
 for preset in "${presets[@]}"; do
   if bash "$preset/detect.sh"; then
-    make --directory="presets/$preset" DESTDIR="$DESTDIR"
+    make --directory="$preset" DESTDIR="$DESTDIR"
   fi
 done
