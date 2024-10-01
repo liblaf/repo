@@ -4,7 +4,7 @@ from repo.utils import hash
 
 
 async def fetch_hashsums(gh: GitHub, tag: str, algo: str = "sha256") -> dict[str, str]:
-    fname: str = hash.hashfile_name(algo)
+    fname: str = hash.hashsum_filename(algo)
     try:
         text: str = await gh.release_download(tag, fname)
     except FileNotFoundError:

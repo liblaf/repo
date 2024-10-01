@@ -11,7 +11,7 @@ async def main(inputs: Inputs) -> None:
     gh: GitHub = GitHub(inputs.repo)
     create: bool = False
     if (release := await gh.release_exists(inputs.tag)) is not None:
-        hashsums_local: dict[str, str] = h.hashfiles(inputs.files, inputs.algo)
+        hashsums_local: dict[str, str] = h.hash_files(inputs.files, inputs.algo)
         hashsums_remote: dict[str, str] = await h.fetch_hashsums(
             gh, inputs.tag, inputs.algo
         )

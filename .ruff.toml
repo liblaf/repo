@@ -1,5 +1,6 @@
 builtins = ["ic"]
 fix = true
+preview = true
 show-fixes = true
 target-version = "py311"
 
@@ -7,16 +8,22 @@ target-version = "py311"
 docstring-code-format = true
 
 [lint]
+explicit-preview-rules = true
+extend-select = ["RUF022"]
 ignore = [
   "ANN",
   "ARG",
   "BLE",
   "COM",
   "D1",
+  "E501",
   "ERA",
+  "F722",
   "FIX",
   "INP",
-  "ISC",
+  "N802",
+  "N803",
+  "N806",
   "PLR09",
   "PLR2004",
   "RET504",
@@ -27,8 +34,13 @@ ignore = [
 select = ["ALL"]
 
 [lint.flake8-import-conventions.extend-aliases]
-"asyncio.subprocess" = "asp"
+"jax.numpy" = "jnp"
+"jax.typing" = "jxt"
+"numpy.typing" = "npt"
+"pyvista" = "pv"
 "subprocess" = "sp"
+"taichi" = "ti"
+"trimesh" = "tm"
 
 [lint.pydocstyle]
 convention = "google"

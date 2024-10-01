@@ -31,7 +31,7 @@ def init_logging(level: int | str = logging.NOTSET) -> None:
     rich.traceback.install()
     if isinstance(level, int):
         level = logging.getLevelName(level)
-    if level == "NOTSET":
+    if level in ("NOTSET", logging.NOTSET):
         level = "DEBUG" if os.getenv("RUNNER_DEBUG") in ("1", "true") else "INFO"
     logging.basicConfig(handlers=[InterceptHandler()], level=0, force=True)
     logger.remove()

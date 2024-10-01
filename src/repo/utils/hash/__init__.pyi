@@ -1,13 +1,13 @@
-from ._dump import dump
+from ._dump import dumps
 from ._fetch import fetch_hashsums
-from ._hash import hashfiles, hashsum
-from ._name import hashfile_name, with_ext
+from ._hash import hash_file, hash_files
+from ._name import hashsum_filename, single_hashsum_filename
 
 __all__ = [
-    "hashsum",
-    "hashfile_name",
+    "dumps",
     "fetch_hashsums",
-    "with_ext",
-    "dump",
-    "hashfiles",
+    "hash_file",
+    "hash_files",
+    "hashsum_filename",
+    "single_hashsum_filename",
 ]
