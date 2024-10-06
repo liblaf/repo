@@ -41,10 +41,8 @@ runs:
         repository: ${{ inputs.repo }}
         path: _tmp.W8nAhH91eW
         fetch-depth: 0
-    - name: Install Tools
-      uses: liblaf/repo/.github/actions/install@main
-      with:
-        pipx: uv
+    - name: Setup UV
+      uses: astral-sh/setup-uv@v3
     - run: |-
         npx conventional-changelog-cli --outfile "${{ runner.temp }}/CHANGELOG.md" --config "${{ github.action_path }}/changelog.json"
         npx prettier --write --ignore-path "" "${{ runner.temp }}/CHANGELOG.md"
