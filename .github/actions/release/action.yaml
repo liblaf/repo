@@ -53,6 +53,7 @@ runs:
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.token }}
+        GITHUB_TOKEN: ${{ inputs.token }}
         INPUT_ALGO: ${{ inputs.hashsum }}
         INPUT_CHANGELOG_FILE: ${{ runner.temp }}/CHANGELOG.md
         INPUT_CLOBBER: ${{ inputs.clobber }}
