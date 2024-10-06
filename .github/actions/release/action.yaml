@@ -47,7 +47,7 @@ runs:
       shell: bash
       name: Generate Changelog
       working-directory: _tmp.W8nAhH91eW
-    - run: pipx --package git+https://github.com/liblaf/repo.git run release
+    - run: pipx run --spec git+https://github.com/liblaf/repo.git release
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.token }}
