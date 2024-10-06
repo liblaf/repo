@@ -41,13 +41,17 @@ runs:
         repository: ${{ inputs.repo }}
         path: _tmp.W8nAhH91eW
         fetch-depth: 0
+    - name: Install Tools
+      uses: liblaf/repo/.github/actions/install@main
+      with:
+        pipx: uv
     - run: |-
         npx conventional-changelog-cli --outfile "${{ runner.temp }}/CHANGELOG.md" --config "${{ github.action_path }}/changelog.json"
         npx prettier --write --ignore-path "" "${{ runner.temp }}/CHANGELOG.md"
       shell: bash
       name: Generate Changelog
       working-directory: _tmp.W8nAhH91eW
-    - run: pipx run --spec git+https://github.com/liblaf/repo.git release
+    - run: uvx --from git+https://github.com/liblaf/repo.git release
       shell: bash
       env:
         GH_TOKEN: ${{ inputs.token }}
