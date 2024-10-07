@@ -88,7 +88,7 @@ class MixinRelease(GitHubBase):
         for asset in assets:
             fpath: Path = Path(asset)
             jobs.append(
-                self.rest.repos.async_upload_release_asset(
+                self.upload_release_asset(
                     self.owner,
                     self.repo,
                     release_id,
@@ -97,7 +97,7 @@ class MixinRelease(GitHubBase):
                 )
             )
             jobs.append(
-                self.rest.repos.async_upload_release_asset(
+                self.upload_release_asset(
                     self.owner,
                     self.repo,
                     release_id,
@@ -106,7 +106,7 @@ class MixinRelease(GitHubBase):
                 )
             )
         jobs.append(
-            self.rest.repos.async_upload_release_asset(
+            self.upload_release_asset(
                 self.owner,
                 self.repo,
                 release_id,
@@ -115,3 +115,22 @@ class MixinRelease(GitHubBase):
             )
         )
         await asyncio.gather(*jobs)
+
+    async def upload_release_asset(
+        self, owner: str, repo: str, release_id: int, name: str, *, data: bytes
+    ) -> m.ReleaseAsset:
+        # TODO: remove this workaround for error in <https://github.com/liblaf/win-fonts/actions/runs/11198561450/job/31179298551>
+        if False:
+            resp: githubkit.Response[
+                m.ReleaseAsset
+            ] = await self.rest.repos.async_upload_release_asset(
+                owner, repo, release_id, name, data=data
+            )
+        resp: githubkit.Response[m.ReleaseAsset] = await self._gh.arequest(
+            "POST",
+            f"/repos/{owner}/{repo}/releases/{release_id}/assets",
+            params={"name": name},
+            content=data,
+            response_model=m.ReleaseAsset,
+        )
+        return resp.parsed_data
