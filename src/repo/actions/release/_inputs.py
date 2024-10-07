@@ -1,6 +1,7 @@
 import functools
 from pathlib import Path
 
+from loguru import logger
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from repo.toolkit import core
@@ -31,4 +32,5 @@ class Inputs(BaseSettings):
         cwd: Path = Path.cwd()
         for line in core.get_multiline_input("FILES"):
             files.extend(cwd.glob(line))
+        logger.info("Files: {}", "\n".join([str(f) for f in files]))
         return files
