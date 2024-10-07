@@ -1,4 +1,5 @@
 import functools
+import os
 from pathlib import Path
 
 from loguru import logger
@@ -29,8 +30,12 @@ class Inputs(BaseSettings):
     @functools.cached_property
     def files(self) -> list[Path]:
         files: list[Path] = []
-        cwd: Path = Path.cwd()
+        cwd: Path
+        if workspace := os.getenv("GITHUB_WORKSPACE"):
+            cwd = Path(workspace)
+        else:
+            cwd = Path.cwd()
         for line in core.get_multiline_input("FILES"):
             files.extend(cwd.glob(line))
-        logger.info("Files: {}", "\n".join([str(f) for f in files]))
+        logger.info("Files:\n{}", "\n".join([str(f) for f in files]))
         return files
