@@ -28,7 +28,7 @@ class InterceptHandler(logging.Handler):
 
 
 def init_logging(level: int | str = logging.NOTSET) -> None:
-    rich.traceback.install()
+    rich.traceback.install(show_locals=True)
     if isinstance(level, int):
         level = logging.getLevelName(level)
     if level in ("NOTSET", logging.NOTSET):
