@@ -38,6 +38,7 @@ class MixinRelease(GitHubBase):
         *,
         assets: Iterable[StrPath] | None = None,
         changelog: str | None = None,
+        draft: bool = False,
         hash_algo: str = "sha256",
         pre_release: bool = False,
     ) -> m.Release:
@@ -49,10 +50,12 @@ class MixinRelease(GitHubBase):
             tag_name=tag,
             name=tag,
             body=changelog or UNSET,
+            draft=draft,
             prerelease=pre_release,
             generate_release_notes=not changelog,
         )
         release: m.Release = resp.parsed_data
+        await asyncio.sleep(3)  # wait for the release to be created
         await self.release_upload(release.id, assets, hash_algo)
         return release
 
@@ -61,6 +64,7 @@ class MixinRelease(GitHubBase):
         await self.rest.git.async_delete_ref(
             self.owner, self.repo, f"tags/{release.tag_name}"
         )
+        await asyncio.sleep(3)  # wait for the release to be deleted
 
     async def release_download(self, tag: str, filename: str) -> str:
         release: m.Release = await self.get_release_by_tag(tag)
