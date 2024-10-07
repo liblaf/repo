@@ -55,7 +55,7 @@ class MixinRelease(GitHubBase):
             generate_release_notes=not changelog,
         )
         release: m.Release = resp.parsed_data
-        await asyncio.sleep(3)  # wait for the release to be created
+        await asyncio.sleep(5)  # wait for the release to be created
         await self.release_upload(release.id, assets, hash_algo)
         return release
 
@@ -64,7 +64,7 @@ class MixinRelease(GitHubBase):
         await self.rest.git.async_delete_ref(
             self.owner, self.repo, f"tags/{release.tag_name}"
         )
-        await asyncio.sleep(3)  # wait for the release to be deleted
+        await asyncio.sleep(5)  # wait for the release to be deleted
 
     async def release_download(self, tag: str, filename: str) -> str:
         release: m.Release = await self.get_release_by_tag(tag)
@@ -123,7 +123,7 @@ class MixinRelease(GitHubBase):
     async def upload_release_asset(
         self, owner: str, repo: str, release_id: int, name: str, *, data: bytes
     ) -> m.ReleaseAsset:
-        # TODO: remove this workaround for error in <https://github.com/liblaf/win-fonts/actions/runs/11198561450/job/31179298551>
+        # TODO: fix workaround for error in <https://github.com/liblaf/win-fonts/actions/runs/11198561450/job/31179298551>
         if False:
             resp: githubkit.Response[
                 m.ReleaseAsset
