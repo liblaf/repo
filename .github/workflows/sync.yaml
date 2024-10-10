@@ -3,24 +3,30 @@ name: Sync
 on:
   workflow_dispatch:
     inputs:
-      repo:
-        description: owner/repo
+      owner:
         required: true
         type: string
+        default: liblaf
+        description: The account owner of the repository. The name is not case sensitive.
+      repo:
+        required: true
+        type: string
+        default: repo
+        description: The name of the repository without the .git extension. The name is not case sensitive.
 
 jobs:
   sync:
     name: Sync
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Template
+      - name: Checkout Repository Template
         uses: actions/checkout@v4
         with:
           path: source
       - name: Checkout Target
         uses: actions/checkout@v4
         with:
-          repository: ${{ inputs.repo }}
+          repository: ${{ inputs.owner }}/${{ inputs.repo }}
           token: ${{ secrets.GH_TOKEN }}
           path: target
       - name: Install Tools
@@ -38,6 +44,8 @@ jobs:
         env:
           DESTDIR: ${{ github.workspace }}/target
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          OWNER: ${{ inputs.owner }}
+          REPO: ${{ inputs.repo }}
         working-directory: source/presets
       - name: Commit
         uses: stefanzweifel/git-auto-commit-action@v5

@@ -1,7 +1,7 @@
 DESTDIR ?= $(error DESTDIR is not set)
+OWNER   ?= $(error OWNER is not set)
+REPO    ?= $(error REPO is not set)
 INSTALL := install -D --mode="u=rw,go=r" --no-target-directory --verbose
-OWNER   != git -C "$(DESTDIR)" remote get-url origin | sed --regexp-extended 's|\.git$$||;s|.*github.com/([^/]+)/([^/]+)|\1|'
-REPO    != git -C "$(DESTDIR)" remote get-url origin | sed --regexp-extended 's|\.git$$||;s|.*github.com/([^/]+)/([^/]+)|\2|'
 
 default: $(DESTDIR)/.github/auto-label.yaml
 default: $(DESTDIR)/.github/blunderbuss.yml
@@ -32,11 +32,11 @@ deprecated:
 	@ $(RM) "$(DESTDIR)/.github/workflows/stale.yaml"
 	@ $(RM) "$(DESTDIR)/.github/workflows/template.yaml"
 
-github: github.sh
-	bash "$<" "$(OWNER)/$(REPO)"
+github: scripts/github.sh
+	@ bash "$<" "$(OWNER)/$(REPO)"
 
 label-sync: scripts/label-sync.sh
-	@ bash "$<"
+	@ bash "$<" "$(OWNER)/$(REPO)"
 
 pre-commit:
 	- pre-commit install --install-hooks
