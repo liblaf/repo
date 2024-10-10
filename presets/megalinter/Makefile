@@ -3,12 +3,14 @@ OWNER    ?= $(error OWNER is not set)
 REPO     ?= $(error REPO is not set)
 INSTALL  := install -D --mode="u=rw,go=r" --no-target-directory --verbose
 
+NO_OVERWRITE += $(DEST_DIR)/.cspell.json
+NO_OVERWRITE += $(DEST_DIR)/.mega-linter.yaml
+
 default: $(DEST_DIR)/.checkov.yml
 default: $(DEST_DIR)/.devskim.json
 default: $(DEST_DIR)/.github/workflows/megalinter.yaml
 default: $(DEST_DIR)/kics.config
-default: | $(DEST_DIR)/.cspell.json
-default: | $(DEST_DIR)/.mega-linter.yaml
+default: $(NO_OVERWRITE)
 
 #####################
 # Auxiliary Targets #
@@ -16,3 +18,6 @@ default: | $(DEST_DIR)/.mega-linter.yaml
 
 $(DEST_DIR)/%: %
 	@ $(INSTALL) "$<" "$@"
+
+$(NO_OVERWRITE): $(DEST_DIR)/%: %
+	@ test -f "$@" || $(INSTALL) "$<" "$@"
