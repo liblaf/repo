@@ -6,9 +6,9 @@ INSTALL  := install -D --mode="u=rw,go=r" --no-target-directory --verbose
 default: $(DEST_DIR)/.checkov.yml
 default: $(DEST_DIR)/.devskim.json
 default: $(DEST_DIR)/.github/workflows/megalinter.yaml
-default: $(DEST_DIR)/.mega-linter.yaml
 default: $(DEST_DIR)/kics.config
 default: | $(DEST_DIR)/.cspell.json
+default: | $(DEST_DIR)/.mega-linter.yaml
 
 #####################
 # Auxiliary Targets #
