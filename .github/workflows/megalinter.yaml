@@ -102,8 +102,9 @@ jobs:
           # .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
           MARKDOWN_SUMMARY_REPORTER: true
 
-      - name: Add GitHub Summary
-        run: cat megalinter-report.md >> "$GITHUB_STEP_SUMMARY"
+      - if: success() || failure()
+        name: Add GitHub Summary
+        run: cat megalinter-reports/megalinter-report.md >> "$GITHUB_STEP_SUMMARY"
 
       # Upload MegaLinter artifacts
       - name: Archive production artifacts
