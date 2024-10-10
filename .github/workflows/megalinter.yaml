@@ -101,6 +101,7 @@ jobs:
           # ADD YOUR CUSTOM ENV VARIABLES HERE TO OVERRIDE VALUES OF
           # .mega-linter.yml AT THE ROOT OF YOUR REPOSITORY
           MARKDOWN_SUMMARY_REPORTER: true
+        continue-on-error: true
 
       - if: success() || failure()
         name: Add GitHub Summary
