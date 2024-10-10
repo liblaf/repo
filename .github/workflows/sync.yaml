@@ -32,7 +32,8 @@ jobs:
           if [[ -n "${{ inputs.repo }}" ]]; then
             echo "repo=${{ inputs.repo }}" >> "$GITHUB_OUTPUT"
           else
-            echo "${{ github.repository }}" | cut --delimiter='/' --fields=2 >> "$GITHUB_OUTPUT"
+            repo=$(echo "${{ github.repository }}" | cut --delimiter='/' --fields=2)
+            echo "repo=$repo" >> "$GITHUB_OUTPUT"
           fi
           echo "token=${{ inputs.token || secrets.PAT || secrets.GH_TOKEN || github.token }}" >> "$GITHUB_OUTPUT"
       - name: Checkout Target
