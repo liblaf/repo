@@ -37,11 +37,6 @@ repos:
         files: \.(bash|sh|zsh)(\.tmpl)?$
         types:
           - text
-  - repo: https://github.com/liblaf/pre-commit-hooks
-    rev: dev
-    hooks:
-      - id: prettier
-        exclude: (.*-lock\..*)|(.*\.lock)$
   - repo: https://github.com/pre-commit/mirrors-clang-format
     rev: v18.1.8
     hooks:

@@ -1,4 +1,6 @@
 #!/bin/bash
-set -o errexit -o nounset -o pipefail
+set -o errexit
+set -o nounset
+set -o pipefail
 
 true

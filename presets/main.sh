@@ -7,6 +7,6 @@ presets=(common)
 
 for preset in "${presets[@]}"; do
   if bash "$preset/detect.sh"; then
-    make --directory="$preset" DESTDIR="$DESTDIR" OWNER="$OWNER" REPO="$REPO"
+    make --directory="$preset" DEST_DIR="$DEST_DIR" OWNER="$OWNER" REPO="$REPO"
   fi
 done
