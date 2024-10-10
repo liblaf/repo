@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/packages/cspell-types/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "ignorePaths": [
+    ".vscode",
+    "**/.cspell.*",
+    "**/.git/**",
+    "**/*-lock.*",
+    "**/*.lock*",
+    "**/node_modules/**",
+    "**/vscode-extension/**",
+    "megalinter",
+    "report"
+  ],
+  "allowCompoundWords": true
+}
