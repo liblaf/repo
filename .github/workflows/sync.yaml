@@ -19,16 +19,16 @@ jobs:
     name: Sync
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository Template
-        uses: actions/checkout@v4
-        with:
-          path: source
       - name: Checkout Target
         uses: actions/checkout@v4
         with:
           repository: ${{ inputs.owner }}/${{ inputs.repo }}
           token: ${{ secrets.GH_TOKEN }}
           path: target
+      - name: Checkout Repository Template
+        uses: actions/checkout@v4
+        with:
+          path: source
       - name: Install Tools
         uses: liblaf/repo/.github/actions/install@main
         with:
@@ -40,7 +40,8 @@ jobs:
         with:
           path: ~/.cache/pre-commit
           key: ${{ hashFiles('source/presets/common/.pre-commit-config.yaml') }}
-      - run: bash main.sh
+      - name: Sync with Repository Template
+        run: bash main.sh
         env:
           DESTDIR: ${{ github.workspace }}/target
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
