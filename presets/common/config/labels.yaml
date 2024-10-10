@@ -1,0 +1,113 @@
+# ref: <https://github.com/googleapis/repo-automation-bots/blob/main/packages/label-sync/src/labels.json>
+- name: automerge
+  description: Merge the pull request once unit tests and other checks pass.
+  color: 00ff00
+- name: "status: blocked"
+  description: Resolving the issue is dependent on other work.
+  color: f9d0c4
+- name: needs more info
+  description: This issue needs more information from the customer to proceed.
+  color: e0ff32
+- name: "status: duplicate"
+  description: Duplicate.
+  color: d4c5f9
+- name: "status: investigating"
+  description: The issue is under investigation, which is determined to be non-trivial.
+  color: fef2c0
+- name: "status: will not fix"
+  description:
+    Invalid (untrue/unsound/erroneous), inconsistent with product, not
+    on roadmap.
+  color: d4c5f9
+- name: "priority: p3"
+  description: Desirable enhancement or fix. May not be included in next release.
+  color: ffffc7
+- name: "priority: p2"
+  description: Moderately-important priority. Fix may not be included in next release.
+  color: fef2c0
+- name: "priority: p1"
+  description: Important issue which blocks shipping the next release. Will be
+    fixed prior to next release.
+  color: ffa03e
+- name: "priority: p0"
+  description: Highest priority. Critical issue. P0 implies highest priority.
+  color: b60205
+- name: do not merge
+  description:
+    Indicates a pull request not ready for merge, due to either quality
+    or timing.
+  color: d93f0b
+- name: help wanted
+  description: We'd love to have community involvement on this issue.
+  color: 3f5e3d
+- name: good first issue
+  description: This issue is a good place to started contributing to this repository.
+  color: 520b77
+- name: "stale: old"
+  description: Pull request is old and needs attention.
+  color: ab270b
+- name: "stale: extraold"
+  description: Pull request is critically old and needs prioritization.
+  color: "801904"
+- name: "generated: genai"
+  description: Contains Generative AI based code, requesting an additional reviewer.
+  color: FFCC00
+
+# ref: <https://github.com/seantrane/github-label-presets>
+- name: breaking
+  color: d73a4a
+  description: Introduces a breaking change.
+- name: "type: bug"
+  color: d73a4a
+  description: Something isn't working.
+- name: "type: chore"
+  color: fef2c0
+  description:
+    Converting measurements, reorganizing folder structure, and less impactful
+    tasks.
+- name: "type: discussion"
+  color: d4c5f9
+  description: Questions, proposals and info that requires discussion.
+- name: "type: docs"
+  color: fef2c0
+  description: Related to documentation and information.
+- name: "type: feature"
+  color: 5ebeff
+  description: Brand new functionality, features, pages, workflows, endpoints, etc.
+- name: "type: fix"
+  color: 91ca55
+  description: Iterations on existing features or infrastructure.
+- name: "type: security"
+  color: d73a4a
+  description: Something is vulnerable or not secure.
+- name: "type: testing"
+  color: fbca04
+  description: Related to testing.
+- name: "work: chaotic"
+  color: fbca04
+  description: The situation is chaotic, novel practices used.
+- name: "work: complex"
+  color: d4c5f9
+  description: The situation is complex, emergent practices used.
+- name: "work: complicated"
+  color: ffb8c6
+  description: The situation is complicated, good practices used.
+- name: "work: obvious"
+  color: 91ca55
+  description: The situation is obvious, best practices used.
+
+# ref: <https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels#about-default-labels>
+- name: bug
+  delete: true # in favor of "type: bug"
+- name: documentation
+  delete: true # in favor of "type: docs"
+- name: duplicate
+  delete: true # in favor of "status: duplicate"
+- name: enhancement
+  delete: true # in favor of "type: feature"
+- name: invalid
+  delete: true # in favor of "status: will not fix"
+- name: question
+  delete: true # in favor of "type: discussion"
+- name: wontfix
+  delete: true # in favor of "status: will not fix"

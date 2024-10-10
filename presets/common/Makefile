@@ -35,5 +35,8 @@ deprecated:
 github: github.sh
 	bash "$<" "$(OWNER)/$(REPO)"
 
+label-sync: scripts/label-sync.sh
+	@ bash "$<"
+
 pre-commit:
 	- pre-commit install --install-hooks
