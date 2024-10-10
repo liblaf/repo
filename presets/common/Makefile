@@ -10,6 +10,7 @@ default: $(DESTDIR)/.github/sync-repo-settings.yaml
 default: $(DESTDIR)/.pre-commit-config.yaml
 default: deprecated
 default: github
+default: label-sync
 default: pre-commit
 
 #####################
