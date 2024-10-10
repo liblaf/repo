@@ -19,6 +19,7 @@ on:
       token:
         required: false
         type: string
+        description: GitHub Token
 
 env:
   FORCE_COLOR: 1

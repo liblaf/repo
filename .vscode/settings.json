@@ -3,8 +3,5 @@
     "**/__pycache__": true,
     "**/.venv": true
   },
-  "python.analysis.diagnosticMode": "workspace",
-  "yaml.schemas": {
-    "https://raw.githubusercontent.com/megalinter/megalinter/main/megalinter/descriptors/schemas/megalinter-configuration.jsonschema.json": "file:///home/liblaf/github/liblaf/repo/.mega-linter.yaml"
-  }
+  "python.analysis.diagnosticMode": "workspace"
 }
