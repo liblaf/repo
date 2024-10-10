@@ -1,0 +1,22 @@
+name: Sync Self
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  sync:
+    name: Sync
+    permissions:
+      actions: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sync with Repository Template
+        run: |-
+          gh workflow --repo "${{ github.repository }}" run sync.yaml \
+            --field owner="${{ github.repository_owner }}" \
+            --field repo="$(echo "${{ github.repository }}" | cut --delimiter='/' --fields=2)"
+        env:
+          GH_TOKEN: ${{ github.token }}
