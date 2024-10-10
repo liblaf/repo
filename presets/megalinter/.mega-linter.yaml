@@ -37,3 +37,7 @@ DISABLE_LINTERS:
 
 DISABLE_ERRORS_LINTERS:
   - SPELL_CSPELL
+
+REPOSITORY_CHECKOV_CONFIG_FILE: .github/megalinter/.checkov.yml
+REPOSITORY_DEVSKIM_CONFIG_FILE: .github/megalinter/.devskim.json
+REPOSITORY_KICS_CONFIG_FILE: .github/megalinter/kics.config

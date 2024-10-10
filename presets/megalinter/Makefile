@@ -6,10 +6,10 @@ INSTALL  := install -D --mode="u=rw,go=r" --no-target-directory --verbose
 NO_OVERWRITE += $(DEST_DIR)/.cspell.json
 NO_OVERWRITE += $(DEST_DIR)/.mega-linter.yaml
 
-default: $(DEST_DIR)/.checkov.yml
-default: $(DEST_DIR)/.devskim.json
+default: $(DEST_DIR)/.github/megalinter/.checkov.yml
+default: $(DEST_DIR)/.github/megalinter/.devskim.json
+default: $(DEST_DIR)/.github/megalinter/kics.config
 default: $(DEST_DIR)/.github/workflows/megalinter.yaml
-default: $(DEST_DIR)/kics.config
 default: $(NO_OVERWRITE)
 
 #####################
