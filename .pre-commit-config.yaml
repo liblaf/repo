@@ -23,11 +23,6 @@ repos:
         files: \.(bash|sh|zsh)(\.tmpl)?$
         types:
           - text
-  - repo: https://github.com/liblaf/pre-commit-hooks
-    rev: dev
-    hooks:
-      - id: prettier
-        exclude: (.*-lock\..*)|(.*\.lock)$
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.6.0
     hooks:
