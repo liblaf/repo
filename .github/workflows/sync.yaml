@@ -20,6 +20,9 @@ on:
         required: false
         type: string
 
+env:
+  FORCE_COLOR: 1
+
 jobs:
   sync:
     name: Sync
@@ -65,11 +68,11 @@ jobs:
           OWNER: ${{ steps.inputs.outputs.owner }}
           REPO: ${{ steps.inputs.outputs.repo }}
         working-directory: source/presets
-      - name: Commit
+      - name: Git Auto Commit
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: |-
             chore(repo): sync with repository template
 
-            template: ${{ github.server_url }}/${{ github.repository }}
+            template: <${{ github.server_url }}/${{ github.repository }}>
           repository: target
