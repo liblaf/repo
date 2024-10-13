@@ -25,7 +25,7 @@ $(DEST_DIR)/.pre-commit-config.yaml: .pre-commit-config.yaml
 $(DEST_DIR)/%: %
 	@ $(INSTALL) "$<" "$@"
 
-deprecated: RM := rm --force --verbose
+deprecated: RM := rm --force --recursive --verbose
 deprecated:
 	@ $(RM) "$(DEST_DIR)/.github/dependabot.yaml"
 	@ $(RM) "$(DEST_DIR)/.github/megalinter/"
