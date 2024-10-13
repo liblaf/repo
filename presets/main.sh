@@ -3,7 +3,7 @@ set -o errexit
 set -o nounset
 set -o pipefail
 
-presets=(common megalinter)
+presets=(common)
 
 for preset in "${presets[@]}"; do
   if bash "$preset/detect.sh"; then

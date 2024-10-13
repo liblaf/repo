@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/megalinter/megalinter/main/megalinter/descriptors/schemas/megalinter-configuration.jsonschema.json
+# ref: <https://megalinter.io/latest/config-file/>
+
+# ----------------------------- Common Variables ----------------------------- #
+APPLY_FIXES: all
+DISABLE_LINTERS:
+  - BASH_EXEC
+  - PYTHON_BANDIT
+  - PYTHON_BLACK
+  - PYTHON_FLAKE8
+  - PYTHON_ISORT
+  - PYTHON_MYPY
+  - PYTHON_PYLINT
+DISABLE_ERRORS_LINTERS:
+  - SPELL_CSPELL
+IGNORE_GENERATED_FILES: true
+LINTER_RULES_PATH: https://github.com/liblaf/hello-megalinter/raw/refs/heads/main/.github/linters/
+SHOW_ELAPSED_TIME: true
+
+# ---------------------------------- Linters --------------------------------- #
+BASH_SHFMT_ARGUMENTS: --simplify --indent 2 --case-indent --space-redirects
