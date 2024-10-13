@@ -54,8 +54,6 @@ jobs:
           CONSOLE_REPORTER: true
           JSON_REPORTER: true
           MARKDOWN_SUMMARY_REPORTER: true
-      - name: List all files
-        run: ls --all --classify --human-readable -l --recursive
       - if: success() || failure()
         name: Archive production artifacts
         uses: actions/upload-artifact@v4
@@ -80,8 +78,6 @@ jobs:
           kics.config
           mega-linter.log
           megalinter-reports/
-      - name: List all files
-        run: ls --all --classify --human-readable -l --recursive
       - id: cpr
         if: >-
           steps.ml.outputs.has_updated_sources == 1 &&
