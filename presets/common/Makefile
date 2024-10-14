@@ -3,11 +3,11 @@ OWNER    ?= $(error OWNER is not set)
 REPO     ?= $(error REPO is not set)
 INSTALL  := install -D --mode="u=rw,go=r" --no-target-directory --verbose
 
+# default: $(DEST_DIR)/.github/auto-label.yaml
+# default: $(DEST_DIR)/.github/blunderbuss.yml
+# default: $(DEST_DIR)/.github/sync-repo-settings.yaml
 default: $(DEST_DIR)/.github/.mega-linter.yaml
-default: $(DEST_DIR)/.github/auto-label.yaml
-default: $(DEST_DIR)/.github/blunderbuss.yml
 default: $(DEST_DIR)/.github/renovate.json
-default: $(DEST_DIR)/.github/sync-repo-settings.yaml
 default: $(DEST_DIR)/.github/workflows/megalinter.yaml
 default: deprecated
 default: github
@@ -27,8 +27,11 @@ $(DEST_DIR)/%: %
 
 deprecated: RM := rm --force --recursive --verbose
 deprecated:
+	@ $(RM) "$(DEST_DIR)/.github/auto-label.yaml"
+	@ $(RM) "$(DEST_DIR)/.github/blunderbuss.yml"
 	@ $(RM) "$(DEST_DIR)/.github/dependabot.yaml"
 	@ $(RM) "$(DEST_DIR)/.github/megalinter/"
+	@ $(RM) "$(DEST_DIR)/.github/sync-repo-settings.yaml"
 	@ $(RM) "$(DEST_DIR)/.github/workflows/dependabot.yaml"
 	@ $(RM) "$(DEST_DIR)/.github/workflows/merge.yaml"
 	@ $(RM) "$(DEST_DIR)/.github/workflows/pre-commit.yaml"
